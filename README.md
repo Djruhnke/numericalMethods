@@ -11,8 +11,13 @@ This method finds the root of a function within a certain interval. It relies on
 An example instantiation of this class is 
 ```bisection = Bisection(f, a, b, tol, iter)``` 
 where:
+
 f is the function being evaluated
+
 a is the start point of the interval
+
 b is the end point of the interval
+
 tol is the tolerance of what is considered zero
+
 iter is the maximum number of iterations
