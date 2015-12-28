@@ -21,3 +21,18 @@ b is the end point of the interval
 tol is the tolerance of what is considered zero
 
 iter is the maximum number of iterations
+
+##Fixed Point Iteration
+This method finds a fixed point of a function. It needs an initial condition to begin iteration where p = IC. To iterate the method, it checks if p is equivalent to f(p) and if it isn't then p = f(p).
+
+An example instantiation of this class is 
+```fixedPoint = FixedPoint(f, IC, tol, iter)```
+where:
+
+f is the function being evaluated
+
+IC is the initial condition
+
+tol is the tolerance of what is considered equivalent
+
+iter is the maximum number of iterations
