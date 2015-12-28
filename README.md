@@ -9,7 +9,7 @@ Types of methods and a short description of their use as they are implemented ar
 This method finds the root of a function within a certain interval. It relies on the Mean Value Theorem (MVT) to assess if the root is to the left or the right of the midpoint and resets the endpoints of the interval accordingly. If the midpoint falls within the tolerance of zero it is considered the root and returned.
 
 An example instantiation of this class is 
->bisection = Bisection(f, a, b, tol, iter) 
+```bisection = Bisection(f, a, b, tol, iter)``` 
 where:
 f is the function being evaluated
 a is the start point of the interval
