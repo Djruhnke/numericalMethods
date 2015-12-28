@@ -44,7 +44,8 @@ class Bisection:
 	def findRoot(self):
 		""" Finds and returns the root of the function using the bisection method. 
 		If the max number of iterations are reached without convergence within the 
-		tolerance then a message is printed and None is returned."""
+		tolerance then a message is printed and None is returned.
+		"""
 		i = 0
 		a = self.start
 		b = self.end
