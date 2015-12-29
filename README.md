@@ -36,3 +36,20 @@ IC is the initial condition
 tol is the tolerance of what is considered equivalent
 
 iter is the maximum number of iterations
+
+##Newton Method
+This method finds a fixed point of a function. It needs an initial condition to begin iteration where p = IC. To iterate the method, it checks if $p_{n}$ is equivalent to $p_{n-1} - f(p_{n-1}) / f'(p_{n-1})$ and if it isn't then $p_{n}=p_{n-1} - f(p_{n-1}) / f'(p_{n-1})$.
+
+An example instantiation of this class is
+```newton = Newton(f, fderiv, IC, tol, iter)```
+where:
+
+f is the function being evaluated
+
+fderiv is the derivative of the function
+
+IC is the initial condition
+
+tol is the tolerance of what is considered equivalent
+
+iter is the maximum number of iterations
