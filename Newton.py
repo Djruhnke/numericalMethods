@@ -1,25 +1,27 @@
-"""Implementation of the fixed point iteration method
+"""Implementation of the newton method
 
-This method is implemented by the class FixedPoint.
+This method is implemented by the class Newton.
 
 Author: Daniel Ruhnke
 """
 
-class FixedPoint:
-	""" FixedPoint class
+class Newton:
+	""" Newton class
 
-	The fixed point iteration method finds the point where x = f(x) within a certain 
+	The newton method finds the point where x = f(x) within a certain 
 	tolerance. The user may update the function, tolerance, initial condition, or the max 
 	iterations. When the method is actually run it will return a float that is a 
 	prediction of the fixed point within the tolerance.
 	"""
 
-	def __init__(self, function, IC, tol, numIter):
-		""" Sets up all the necessary attributes to exectute the fixed point method.
+	def __init__(self, function, deriv, IC, tol, numIter):
+		""" Sets up all the necessary attributes to exectute the newton method.
 
 		Arguments:
 		function -- the function to be evaluated, must take an argument as the variable 
 		in the function and return the result
+		deriv -- the derivative of the function, must take an argument as the variable 
+		in the derivative function and return the result
 		IC -- the initial condition to start the execution of the method
 		tol -- the tolerance which the result must fall within the actual result to be 
 		returned
@@ -27,12 +29,13 @@ class FixedPoint:
 		the function returns a failure
 
 		Preconditions:
-		Function must take a variable and return a result. Tolerance must be a positive 
-		number. Max iterations must be a positive number.
+		Function and derivative must take a variable and return a result. Tolerance 
+		must be a positive number. Max iterations must be a positive number.
 		"""
 		assert tol > 0, "Tolerance must be positive"
 		assert numIter > 0, "Max iterations must be at least 1"
 		self.function = function
+		self.deriv = deriv
 		self.IC = IC
 		self.tol = tol
 		self.numIter = numIter
@@ -45,7 +48,7 @@ class FixedPoint:
 		i = 0
 		p0 = self.IC
 		while i < self.numIter:
-			p = self.function(p0)
+			p = p0 - (self.function(p0) / self.deriv(p0))
 			if abs(p - p0) < self.tol:
 				return p
 			i += 1
@@ -64,6 +67,18 @@ class FixedPoint:
 		Function must take a variable and return a result.
 		"""
 		self.function = function
+
+	def setDerivative(self, deriv):
+		""" Sets a new derivative of the function.
+
+		Arguments:
+		deriv -- the new derivative of the function, must take an argument as the variable 
+		in the derivative function and return the result
+
+		Preconditions:
+		Derivative must take a variable and return a result.
+		"""
+		self.deriv = deriv
 
 	def setIC(self, IC):
 		""" Sets a new initial condition for the method.
