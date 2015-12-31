@@ -53,3 +53,22 @@ IC is the initial condition
 tol is the tolerance of what is considered equivalent
 
 iter is the maximum number of iterations
+
+##Newton-Bisection Method
+This method finds a root within a certain interval. It combines the Newton and the Bisection Method for faster convergance. Once the point falls within the tolerance of zero it is considered the root and returned.
+
+An example instantiation of this class is 
+```newton_bisection = NewtonBisection(f, fderiv, a, b, tol, iter)``` 
+where:
+
+f is the function being evaluated
+
+fderiv is the derivative of the function
+
+a is the start point of the interval
+
+b is the end point of the interval
+
+tol is the tolerance of what is considered zero
+
+iter is the maximum number of iterations
