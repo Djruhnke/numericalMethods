@@ -1,58 +1,63 @@
-"""Implementation of the newton method
+"""Implementation of the secant method
 
-This method is implemented by the class Newton.
+This method is implemented by the class Secant.
 
 Author: Daniel Ruhnke
 """
 
-class Newton:
-	""" Newton class
+class Secant:
+	""" Secant class
 
-	The newton method finds the point where x = f(x) within a certain 
-	tolerance. The user may update the function, tolerance, initial condition, or the max 
+	The secant method finds the point where x = f(x) within a certain 
+	tolerance. The user may update the function, tolerance, two initial conditions, or the max 
 	iterations. When the method is actually run it will return a float that is a 
 	prediction of the fixed point within the tolerance.
 	"""
 
-	def __init__(self, function, deriv, IC, tol, numIter):
-		""" Sets up all the necessary attributes to exectute the newton method.
+	def __init__(self, function, IC1, IC2, tol, numIter):
+		""" Sets up all the necessary attributes to exectute the secant method.
 
 		Arguments:
 		function -- the function to be evaluated, must take an argument as the variable 
 		in the function and return the result
-		deriv -- the derivative of the function, must take an argument as the variable 
-		in the derivative function and return the result
-		IC -- the initial condition to start the execution of the method
+		IC1 -- the first initial condition to start the execution of the method
+		IC2 -- the second initial condition to start the execution of the method
 		tol -- the tolerance which the result must fall within the actual result to be 
 		returned
 		numIter -- the maximum number of iterations that will be executed before 
 		the function returns a failure
 
 		Preconditions:
-		Function and derivative must take a variable and return a result. Tolerance 
+		Function must take a variable and return a result. Tolerance 
 		must be a positive number. Max iterations must be a positive number.
 		"""
 		assert tol > 0, "Tolerance must be positive"
 		assert numIter > 0, "Max iterations must be at least 1"
 		self.function = function
-		self.deriv = deriv
-		self.IC = IC
+		self.IC1 = IC1
+		self.IC2 = IC2
 		self.tol = tol
 		self.numIter = numIter
 
 	def findFixedPoint(self):
-		""" Finds and returns a fixed point of the function using the newton method. 
+		""" Finds and returns a fixed point of the function using the secant method. 
 		If the max number of iterations are reached without convergence within the 
 		tolerance then a message is printed and None is returned.
 		"""
-		i = 0
-		p0 = self.IC
+		i = 1
+		p0 = self.IC1
+		q0 = self.function(self.IC1)
+		p1 = self.IC2
+		q1 = self.function(self.IC2)
 		while i < self.numIter:
-			p = p0 - (self.function(p0) / self.deriv(p0))
-			if abs(p - p0) < self.tol:
+			p = p1 - q1 * (p1 - p0) / (q1 - q0)
+			if abs(p - p1) < self.tol:
 				return p
 			i += 1
-			p0 = p
+			p0 = p1
+			q0 = q1
+			p1 = p
+			q1 = self.function(p)
 		print("Function did not converge within max number of iterations.")
 		return None
 
@@ -68,25 +73,15 @@ class Newton:
 		"""
 		self.function = function
 
-	def setDerivative(self, deriv):
-		""" Sets a new derivative of the function.
-
-		Arguments:
-		deriv -- the new derivative of the function, must take an argument as the variable 
-		in the derivative function and return the result
-
-		Preconditions:
-		Derivative must take a variable and return a result.
-		"""
-		self.deriv = deriv
-
-	def setIC(self, IC):
+	def setIC(self, IC1, IC2):
 		""" Sets a new initial condition for the method.
 
 		Arguments:
-		IC -- the new initual condition to start the execution of the method
+		IC1 -- the new first initual condition to start the execution of the method
+		IC2 -- the new second initial condition to start the execution of the method
 		"""
-		self.IC = IC
+		self.IC1 = IC1
+		self.IC2 = IC2
 
 	def setTolerance(self, tol):
 		""" Sets a new tolerance for the method.

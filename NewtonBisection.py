@@ -15,7 +15,7 @@ class NewtonBisection:
 	"""
 
 	def __init__(self, function, deriv, a, b, tol, numIter):
-		""" Sets up all the necessary attributes to exectute the newton-busection method.
+		""" Sets up all the necessary attributes to exectute the newton-bisection method.
 
 		Arguments:
 		function -- the function to be evaluated, must take an argument as the variable 
